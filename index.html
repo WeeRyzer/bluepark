@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <span>Bluepark</span>
+        <span>Alpha v0.2</span>
+      </div>
+    </nav>
+    <div id="map"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      var map;
+      var markContent;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 57.1497, lng: -2.0943},
+          zoom: 15
+        });
+
+      var infowindow = new google.maps.InfoWindow({
+            content: '<p id="hook">fit like</p>'
+      });
+
+      var iconBase = 'img/';
+        var icons = {
+          parking: {
+            icon: iconBase + 'disabled.png'
+          }
+        };
+
+        var features = [
+          {
+            position: new google.maps.LatLng(57.145760, -2.108849),
+            type: 'parking',
+            spaces: '2',
+            location: 'Summer Street Car Park',
+            postcode: 'AB10 1SD',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.147186, -2.105076),
+            type: 'parking',
+            spaces: '3',
+            location: 'Union Terrace',
+            postcode: 'AB10 1NN',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.147186, -2.105076),
+            type: 'parking',
+            spaces: '3',
+            location: 'Union Terrace',
+            postcode: 'AB10 1NN',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.147186, -2.105076),
+            type: 'parking',
+            spaces: '3',
+            location: 'Union Terrace',
+            postcode: 'AB10 1NN',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.147976, -2.101994),
+            type: 'parking',
+            spaces: '5',
+            location: 'Schoolhill',
+            postcode: 'AB10 1JQ',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.148529, -2.105862),
+            type: 'parking',
+            spaces: '3',
+            location: 'Spa St',
+            postcode: 'AB25 1PU',
+            contentString: markContent
+          }, {
+            position: new google.maps.LatLng(57.148706, -2.106719),
+            type: 'parking',
+            spaces: '6',
+            location: 'Denburn Car Park',
+            postcode: 'AB25 1PU',
+            contentString: markContent
+          }
+        ];
+
+        // Create markers.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map,
+            animation: google.maps.Animation.DROP
+          });
+
+          var markContent =
+            '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+                //'<img src="img/union-terrace.jpg">' +
+                '<h2 id="firstHeading" class="firstHeading">' + feature.location + '</h2>'+
+                '<h3 class="secondHeading">' + feature.postcode + '</h3>' +
+                '<hr>' +
+                '<div id="bodyContent">'+
+                '<p>There are a total of '+ feature.spaces +' disabled spaces at ' + feature.location + '.' +
+                '<p><i class="fa fa-car" aria-hidden="true"></i>Free to park</p>' +
+                '<p>No time restriction</p>' +
+              '</div>'+
+            '</div>'
+
+          console.log(markContent);
+
+          marker.addListener('click', function() {
+            infowindow.close();
+            infowindow.setContent(markContent);
+            infowindow.open(map, marker);
+          });
+
+          google.maps.event.addListener( map, 'click', function() {
+              infowindow.close(); 
+              infowindow.open( null, null ); 
+          } );
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&callback=initMap"
+    async defer></script>
+  </body>
+</html>

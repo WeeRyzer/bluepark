@@ -1,0 +1,66 @@
+$primary: #32528f;
+$secondary: #e0ffff;
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 70%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+nav {
+  max-width:100%;
+  background-color: $primary;
+  color: $secondary;
+  padding: 15px 0px;
+  border-bottom: 3px solid $secondary;
+  z-index: 100;
+  overflow-x: hidden;
+
+
+  span {
+    font-size: 1.2em;
+    font-weight: 500;
+
+    &:last-child {
+      float:right;
+    }
+  }
+
+}
+
+#content {
+  padding: 20px;
+  padding-left: 40px;
+  width: 300px;
+  overflow-x: hidden;
+
+  hr {
+    border-color: $secondary;
+  }
+
+  img {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    font-weight: 400;
+  }
+
+  #firstHeading {
+    margin-bottom: 5px;
+  }
+
+  .secondHeading {
+    margin-top: 0px;
+  }
+}
