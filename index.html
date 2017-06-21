@@ -7,21 +7,27 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
     <nav>
       <div class="container">
         <span>Bluepark</span>
-        <span>Alpha v0.3</span>
+        <span>Alpha v0.4</span>
       </div>
     </nav>
+    <input id="user-location" type="text">
+    <button id="get-loc">send</button>
     <div id="map"></div>
+
+    <ol id="distances"></ol>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
       var map;
       var markContent;
+      var userLocation;
+
+      //var myLocation = 57.148862, -2.098110;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 57.1497, lng: -2.0943},
@@ -312,7 +318,7 @@
               '</div>'+
             '</div>'
 
-          console.log(markContent);
+          //console.log(markContent);
 
           marker.addListener('click', function() {
             infowindow.close();
@@ -325,9 +331,47 @@
               infowindow.open( null, null ); 
           } );
         });
+
+        var closest = [[]];
+
+        $("#get-loc").click(function() {
+          userLocation = $('#user-location').val();
+
+          for (i=0; i<features.length; i++) {
+            var _pCord = features[i].position;
+
+            //closest.push(features[i].position);
+
+            var myLatLng = new google.maps.LatLng({lat: 57.144578, lng: -2.098298}); 
+
+          var dist = (google.maps.geometry.spherical.computeDistanceBetween(_pCord, myLatLng));
+
+          var obj ={};
+
+          obj.dist = dist;
+          obj.location = features[i].location;
+
+          console.log(features[i].location, dist);
+
+          closest.push(obj);
+          }
+
+          console.log(closest);
+
+          var closestEach;
+
+          for (i=1; i<closest.length; i++) {
+            closestEach = closest[i].dist;
+
+            document.getElementById('distances').innerHTML += '<li>'+ closestEach +'</li>';
+          }
+                  
+        });
+
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&callback=initMap"
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=falsekey=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&callback=initMap"
     async defer></script>
   </body>
 </html>
