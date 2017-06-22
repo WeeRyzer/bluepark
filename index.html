@@ -7,25 +7,58 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://use.fontawesome.com/37fce4790f.js"></script>
   </head>
   <body>
+
     <nav>
       <div class="container">
-        <span>Bluepark</span>
-        <span>Alpha v0.4</span>
+        <div class="col-xs-12">
+          <span>Bluepark</span>
+          <span>Alpha v0.5</span>
+        </div>
       </div>
     </nav>
-    <input id="user-location" type="text">
-    <button id="get-loc">send</button>
+
+    <div class="search">
+      <div class="container">
+        <div class="col-md-6">
+          <div class="get-location">
+            <!--<span>USE GPS</span><br>-->
+            <button id="your-loc"><i class="fa fa-location-arrow" aria-hidden="true"></i>GET MY LOCATION</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="get-postcode">
+            <!--<span>SEARCH BY POSTCODE</span><br>-->
+            <input id="user-location" type="text" placeholder="Postcode">
+            <button id="get-loc"><i class="fa fa-search" aria-hidden="true"></i>FIND CLOSEST</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="map"></div>
 
-    <ol id="distances"></ol>
+    <div class="closest-marker-info">
+      <div class="container">
+        <ul id="distances">
+          <h1>You haven't searched for any spaces close to you. <i class="fa fa-frown-o" aria-hidden="true"></i></h1>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
       var map;
       var markContent;
       var userLocation;
+      var yourLat;
+      var yourLng;
 
       //var myLocation = 57.148862, -2.098110;
       function initMap() {
@@ -332,17 +365,70 @@
           } );
         });
 
-        var closest = [[]];
+        $("#your-loc").click(function() {
+                  if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            yourLat = position.coords.latitude;
+            yourLng = position.coords.longitude;
+
+            console.log(yourLat, yourLng);
+
+            infowindow.setPosition(pos);
+            infowindow.setContent('Location found.');
+            infowindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infowindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infowindow, map.getCenter());
+        }
+
+        function handleLocationError(browserHasGeolocation, infowindow, pos) {
+                infowindow.setPosition(pos);
+                infowindow.setContent(browserHasGeolocation ?
+                                      'Error: The Geolocation service failed.' :
+                                      'Error: Your browser doesn\'t support geolocation.');
+                infowindow.open(map);
+              }
+        });
 
         $("#get-loc").click(function() {
-          userLocation = $('#user-location').val();
 
-          for (i=0; i<features.length; i++) {
+          $( "#distances" ).empty();
+
+          userLocation = $('#user-location').val().toUpperCase();;
+
+          document.getElementById('distances').innerHTML = '<h1>The nearest spaces to ' + userLocation + ' are:</h1>'; 
+
+          var url  = "https://api.postcodes.io/postcodes/"+userLocation;
+
+          var latitude;
+          var longitude;
+          var closest = new Array();
+
+          //ajax call
+          $.ajax({
+                  url: url,
+                  dataType: 'jsonp',
+                  success: function(json) {
+                  console.log(json.status);
+                    longitude = json.result.longitude;
+                    latitude = json.result.latitude;
+                    console.log('long',longitude, 'lat', latitude);
+
+            for (i=0; i<features.length; i++) {
             var _pCord = features[i].position;
 
             //closest.push(features[i].position);
 
-            var myLatLng = new google.maps.LatLng({lat: 57.144578, lng: -2.098298}); 
+            var myLatLng = new google.maps.LatLng({lat: latitude, lng: longitude}); 
 
           var dist = (google.maps.geometry.spherical.computeDistanceBetween(_pCord, myLatLng));
 
@@ -358,20 +444,35 @@
 
           console.log(closest);
 
-          var closestEach;
+          closest.sort(function(a, b) {
+              return parseFloat(a.dist) - parseFloat(b.dist);
+          });
 
-          for (i=1; i<closest.length; i++) {
-            closestEach = closest[i].dist;
+          for (i=0; i<9; i++) {
+            var closestEach = closest[i].dist;
+            var inMiles = closestEach / 1609.34;
+            var roundUp = inMiles.toFixed(2);
+            var objLoc = closest[i].location;
 
-            document.getElementById('distances').innerHTML += '<li>'+ closestEach +'</li>';
+            document.getElementById('distances').innerHTML += '<div class="col-lg-4"><li><h2>' + objLoc + '</h2>' + roundUp +' miles</li></div>';
           }
+                  },
+                  error: function(desc, err) {
+                      $('#text').html("Details: " + desc.responseText);
+                  }
+              });
+
+          /*//uppercase 
+          String.prototype.strFirstUpper = function() {
+              return this.charAt(0).toUpperCase() + this.slice(1);
+          }*/
                   
         });
 
       }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=falsekey=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&callback=initMap"
     async defer></script>
   </body>
 </html>
