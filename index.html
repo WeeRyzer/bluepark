@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Bluepark - Aberdeen</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <meta name="theme-color" content="#32528f">
     <script src="https://use.fontawesome.com/37fce4790f.js"></script>
   </head>
   <body>
 
+    <div class="info">
+      <div class="container">
+        <div class="col-xs-10">
+            <span>LOCATION SERVICES NEEDED - <a href="#">WHY?</a></span>
+        </div>
+        <div class="col-xs-2">
+          <i id="close" class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        </div>
+      </div>
+    </div>
+
     <nav>
       <div class="container">
         <div class="col-xs-12">
-          <span>Bluepark</span>
-          <span>Alpha v0.6</span>
+          <span><i class="fa fa-wheelchair-alt" aria-hidden="true"></i>Bluepark</span>
+          <span>v0.7</span>
         </div>
       </div>
     </nav>
 
     <div class="search">
       <div class="container">
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-sm-6 col-md-8">
           <div class="get-location">
-            <!--<span>USE GPS</span><br>-->
             <button id="your-loc"><i class="fa fa-location-arrow" aria-hidden="true"></i>GET MY LOCATION</button>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-sm-6 col-md-4">
           <div class="get-postcode">
-            <!--<span>SEARCH BY POSTCODE</span><br>-->
-            <input id="user-location" type="text" placeholder="Postcode">
-            <button id="get-loc"><i class="fa fa-search" aria-hidden="true"></i>FIND</button>
+            <section class="flexbox">
+                    <div class="stretch">
+                        <input id="user-location" type="text" placeholder="Postcode" />
+                    </div>
+                    <div class="normal">
+                        <button id="get-loc"><i class="fa fa-search" aria-hidden="true"></i>FIND</button>
+                    </div>
+            </section>
           </div>
         </div>
       </div>
@@ -43,7 +61,7 @@
     <div class="closest-marker-info">
       <div class="container">
         <ul id="distances">
-          <h1>You haven't searched for any spaces close to you. <i class="fa fa-frown-o" aria-hidden="true"></i></h1>
+          <h1 id="response">Use your location or a postcode to find the nearest spaces</h1>
         </ul>
       </div>
     </div>
@@ -58,5 +76,13 @@
     async defer></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#close').click(function() {
+          $('.info').hide();
+        });
+      });
+    </script>
   </body>
 </html>

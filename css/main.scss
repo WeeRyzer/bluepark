@@ -1,17 +1,22 @@
 $primary: #32528f;
 $secondary: #e0ffff;
+$hover: #243c69;
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-  height: 50%;
+  height: 60%;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+h4 {
+  margin: 0;
 }
 
 nav {
@@ -26,6 +31,10 @@ nav {
   span {
     font-size: 1.2em;
     font-weight: 500;
+
+    i {
+      margin-right: 10px;
+    }
 
     &:last-child {
       float:right;
@@ -47,9 +56,64 @@ button {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
   border-radius: 2px;
 
+  &:hover {
+    background-color: $hover;
+  }
+
   i {
     margin-right: 10px;
   }
+}
+
+.info {
+  padding: 6px 0px;
+  font-weight: 500;
+  font-size: 1em;
+  background-color: #229C3E;
+  color: white;
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  i {
+    margin-top: 2px;
+    float: right;
+
+    &:hover {
+      cursor: pointer;
+      color: $hover;
+    }
+  }
+}
+
+.flexbox { 
+  display: flex;
+}
+
+.flexbox .stretch { 
+  flex: 1; 
+  flex-grow: 2;
+  flex-basis: 0;
+}
+
+.flexbox .normal { 
+  flex: 0; 
+  margin: 0 0 0 1rem;
+  flex-grow: 1;
+  flex-basis: 0; 
+}
+
+.flexbox div input { 
+  padding: .5em 1em; 
+  width: 100%;
+}
+
+.flexbox div button { 
+  padding: .5em 1em; 
+  white-space: nowrap;
+  width: 100%;
 }
 
 .search {
@@ -58,24 +122,33 @@ button {
   padding: 20px;
 
   span {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 700;
-    position: block;
+    text-align: center;
+    color: $primary;
   }
 
   .get-postcode {
-    float: right;
 
     input {
-      padding: 10px 10px;
+      padding: 8px 10px;
       border: none;
-      height: 43px;
       display: inline;
-      width: 150px;
+      width: 100%;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14);
+      -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12);
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
+      vertical-align: middle;
+      border-radius: 2px;
+      font-size: 1.2em;
+
+      &:focus {
+        background-color: #ffffe6;
+      }
     }
 
     button {
-      float:right;
+      vertical-align: middle;
     }
   }
 }
@@ -142,11 +215,19 @@ button {
   .secondHeading {
     margin-top: 0px;
   }
+
+  i {
+    margin-right: 10px;
+  }
+
+  h3 {
+    font-weight: 400;
+  }
 }
 
 footer {
   height: 500px;
-  background-color: #313131;
+  background-color: #476795;
 }
 
 @media screen and (max-width: 480px) {
@@ -164,6 +245,29 @@ footer {
     button {
       width: 100%;
       margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .get-location {
+    button {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .get-postcode {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 351px) {
+  .info {
+    #close {
+      margin-top: 12px;
     }
   }
 }
