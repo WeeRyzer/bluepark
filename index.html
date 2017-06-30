@@ -16,11 +16,10 @@
     <div class="info">
       <div class="container">
         <div class="col-xs-10">
-            <span>LOCATION SERVICES NEEDED - <a href="#">WHY?</a></span>
+            <span>LOCATION SERVICES NEEDED - <a href="#why-we-use">WHY?</a></span>
         </div>
         <div class="col-xs-2">
           <i id="close" class="fa fa-times" aria-hidden="true"></i>
-        </div>
         </div>
       </div>
     </div>
@@ -29,7 +28,7 @@
       <div class="container">
         <div class="col-xs-12">
           <span><i class="fa fa-wheelchair-alt" aria-hidden="true"></i>Bluepark</span>
-          <span>v0.8</span>
+          <span>v0.9</span>
         </div>
       </div>
     </nav>
@@ -109,17 +108,35 @@
 
     <footer>
       <div class="container">
-        <div class="col-xs-8">
-          <h4>contact</h4>
+        <div class="col-xs-12 col-md-8">
+          <h2>Contact and updates</h2>
+            <div class="contact-option">
+              <i class="fa fa-twitter" aria-hidden="true"></i><span><a href="https://www.twitter.com/blueparkorg">@blueparkorg</a></span>
+            </div>
+            <div class="contact-option">
+              <i class="fa fa-envelope" aria-hidden="true"></i><span><a href="mailto:contact@bluepark.org">contact@bluepark.org</a></span>
+            </div>
+            <hr>
+          <h2>Disclaimer</h2>
+          <p>This website is just a guide to where you can park. Please make sure you read all the signs before parking. We are not liable if you receive a parking ticket.</p>
 
+          <p>For more information, check out the Aberdeen City Council website <a href="http://www.aberdeencity.gov.uk/transport_streets/parking/roa_disabled_parking_prov.asp">here</a>.</p>
+
+          <p>Icon provided by <a href="http://accessibleicon.org/">accessibleicon.org</a>.</p>
+          <hr>
         </div>
-
-        <div class="col-xs-4">
-          <form>
-            <input type="text"/>
-            <input type="text"/>
-            <input type="text"/>
-            <button></button>
+        <div class="col-xs-12 col-md-4">
+          <h2>Get in touch</h2>
+          <form action="https://formspree.io/contact@bluepark.org"
+                method="POST">
+              <input type="text" name="_gotcha" style="display:none" />
+              <label>Name</label>
+              <input type="text" name="name" placeholder="Enter your name here">
+              <label>Email</label>
+              <input type="email" name="_replyto" placeholder="Enter your email address here">
+              <label>Message</label>
+              <textarea name="message" placeholder="Write your message here"></textarea>
+              <button type="submit" value="Send">Send</button>
           </form>
         </div>
       </div>

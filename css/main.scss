@@ -1,15 +1,15 @@
+//scss variables
+
 $primary: #32528f;
 $secondary: #e0ffff;
 $tertiary: #243c69;
 $white: #fbfbfb;
 $black: #313131;
+$green: #28b549;
+$light-green: #8fe6a4;
 
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
-#map {
-  height: 60%;
-}
-/* Optional: Makes the sample page fill the window. */
+//html and body
+
 html, body {
   height: 100%;
   margin: 0;
@@ -20,6 +20,38 @@ html, body {
 h4 {
   margin: 0;
 }
+
+//info panel above nav (green)
+
+.info {
+  padding: 6px 0px;
+  font-weight: 500;
+  font-size: 1em;
+  background-color: #229C3E;
+  color: $white;
+
+  a, a:visited {
+    color: $white;
+    text-decoration: underline;
+
+    &:hover, &:active {
+      text-decoration: none;
+      color: $black;
+    }
+  }
+
+  i {
+    margin-top: 2px;
+    float: right;
+
+    &:hover, &:active {
+      cursor: pointer;
+      color: $black;
+    }
+  }
+}
+
+//bluepark nav above location and postcode search
 
 nav {
   max-width:100%;
@@ -57,9 +89,11 @@ button {
   -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12);
   box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
   border-radius: 2px;
+  transition: background-color 0.1s;
 
   &:hover {
     background-color: $tertiary;
+    transition: background-color 0.3s;
   }
 
   i {
@@ -67,55 +101,7 @@ button {
   }
 }
 
-.info {
-  padding: 6px 0px;
-  font-weight: 500;
-  font-size: 1em;
-  background-color: #229C3E;
-  color: $white;
-
-  a {
-    color: $white;
-    text-decoration: underline;
-  }
-
-  i {
-    margin-top: 2px;
-    float: right;
-
-    &:hover {
-      cursor: pointer;
-      color: $tertiary;
-    }
-  }
-}
-
-.flexbox { 
-  display: flex;
-}
-
-.flexbox .stretch { 
-  flex: 1; 
-  flex-grow: 2;
-  flex-basis: 0;
-}
-
-.flexbox .normal { 
-  flex: 0; 
-  flex-grow: 1;
-  flex-basis: 0; 
-}
-
-.flexbox div input { 
-  padding: .5em 1em; 
-  width: 100%;
-}
-
-.flexbox div button { 
-  padding: .5em 1em; 
-  white-space: nowrap;
-  width: 100%;
-}
+//search panel under nav
 
 .search {
   background-color: #e0ffff;
@@ -155,6 +141,50 @@ button {
   }
 }
 
+//flexbox for postcode search
+
+.flexbox { 
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -o-flex;
+  display: flex;
+}
+
+.flexbox .stretch {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  -o-flex: 1; 
+  flex: 1; 
+  flex-grow: 2;
+  flex-basis: 0;
+}
+
+.flexbox .normal { 
+  flex: 0; 
+  flex-grow: 1;
+  flex-basis: 0; 
+}
+
+.flexbox div input { 
+  padding: .5em 1em; 
+  width: 100%;
+}
+
+.flexbox div button { 
+  padding: .5em 1em; 
+  white-space: nowrap;
+  width: 100%;
+}
+
+//google map height
+#map {
+  height: 60%;
+}
+
+//marker info panel that updates with JSON
+
 .closest-marker-info {
   background-color: #e0ffff;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='%239C92AC' fill-opacity='0.06'%3E%3Cpath fill-rule='evenodd' d='M29.42 29.41c.36-.36.58-.85.58-1.4V0h-4v26H0v4h28c.55 0 1.05-.22 1.41-.58h.01zm0 29.18c.36.36.58.86.58 1.4V88h-4V62H0v-4h28c.56 0 1.05.22 1.41.58zm29.16 0c-.36.36-.58.85-.58 1.4V88h4V62h26v-4H60c-.55 0-1.05.22-1.41.58h-.01zM62 26V0h-4v28c0 .55.22 1.05.58 1.41.37.37.86.59 1.41.59H88v-4H62zM18 36c0-1.1.9-2 2-2h10a2 2 0 1 1 0 4H20a2 2 0 0 1-2-2zm0 16c0-1.1.9-2 2-2h10a2 2 0 1 1 0 4H20a2 2 0 0 1-2-2zm16-26a2 2 0 0 1 2-2 2 2 0 0 1 2 2v4a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-4zm16 0a2 2 0 0 1 2-2 2 2 0 0 1 2 2v4a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-4zM34 58a2 2 0 0 1 2-2 2 2 0 0 1 2 2v4a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-4zm16 0a2 2 0 0 1 2-2 2 2 0 0 1 2 2v4a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-4zM34 78a2 2 0 0 1 2-2 2 2 0 0 1 2 2v6a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-6zm16 0a2 2 0 0 1 2-2 2 2 0 0 1 2 2v6a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-6zM34 4a2 2 0 0 1 2-2 2 2 0 0 1 2 2v6a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4zm16 0a2 2 0 0 1 2-2 2 2 0 0 1 2 2v6a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4zm-8 82a2 2 0 1 1 4 0v2h-4v-2zm0-68a2 2 0 1 1 4 0v10a2 2 0 1 1-4 0V18zM66 4a2 2 0 1 1 4 0v8a2 2 0 1 1-4 0V4zm0 72a2 2 0 1 1 4 0v8a2 2 0 1 1-4 0v-8zm-48 0a2 2 0 1 1 4 0v8a2 2 0 1 1-4 0v-8zm0-72a2 2 0 1 1 4 0v8a2 2 0 1 1-4 0V4zm24-4h4v2a2 2 0 1 1-4 0V0zm0 60a2 2 0 1 1 4 0v10a2 2 0 1 1-4 0V60zm14-24c0-1.1.9-2 2-2h10a2 2 0 1 1 0 4H58a2 2 0 0 1-2-2zm0 16c0-1.1.9-2 2-2h10a2 2 0 1 1 0 4H58a2 2 0 0 1-2-2zm-28-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 26a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm16 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM36 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm16 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 68a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm16-34a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm16-12a2 2 0 1 0 0 4 6 6 0 1 1 0 12 2 2 0 1 0 0 4 10 10 0 1 0 0-20zm-64 0a2 2 0 1 1 0 4 6 6 0 1 0 0 12 2 2 0 1 1 0 4 10 10 0 1 1 0-20zm56-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 48a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-48 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0-48a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm24 32a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-4a6 6 0 1 0 0-12 6 6 0 0 0 0 12zm36-36a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM10 44c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4h-8a2 2 0 0 1-2-2zm56 0c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4h-8a2 2 0 0 1-2-2zm8 24c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4h-8a2 2 0 0 1-2-2zM3 68c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4H5a2 2 0 0 1-2-2zm0-48c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4H5a2 2 0 0 1-2-2zm71 0c0-1.1.9-2 2-2h8a2 2 0 1 1 0 4h-8a2 2 0 0 1-2-2zm6 66a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM8 86a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0-68A6 6 0 1 1 8 2a6 6 0 0 1 0 12zm0-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm36 36a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'/%3E%3C/g%3E%3C/svg%3E");
@@ -191,6 +221,8 @@ button {
     }
   }
 }
+
+//google map content
 
 #content {
   padding: 20px;
@@ -230,6 +262,8 @@ button {
   }
 }
 
+//why-we-use
+
 #why-we-use {
   padding: 50px 0px 30px 0px;
   background-color: $primary;
@@ -262,9 +296,100 @@ button {
   }
 }
 
+//footer
+
 footer {
-  height: 500px;
   background-color: $tertiary;
+  padding: 50px 0px 70px 0px;
+  color: $secondary;
+
+  a, a:visited, a:focus {
+    text-decoration: underline;
+    color: $secondary;
+    font-weight: 500;
+    transition: color 0.1s;
+
+    &:hover, &:active {
+      color: #8fe6a4;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+  }
+
+  hr {
+    border-color: $primary;
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-top: 0;
+  }
+
+  h2 {
+    color: #8fe6a4;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .contact-option {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  form {
+
+    label {
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      padding: 8.5px 10px;
+      border: none;
+      display: block;
+      width: 100%;
+      -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14);
+      -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12);
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
+      vertical-align: middle;
+      border-radius: 2px;
+      font-size: 1.2em;
+      margin: 10px 0px 20px 0px;
+      color: $black;
+
+      &:focus {
+        background-color: #ffffe6;
+      }
+    }
+
+    textarea {
+      max-width: 100%;
+      height: 130px;
+      max-height: 130px;
+    }
+
+    button {
+      width: 100%;
+      &:hover {
+        background-color: $green;
+      }
+    }
+  }
+}
+
+//media queries
+
+@media screen and (min-width: 992px) {
+  footer {
+    hr:last-child {
+      display:none;
+    }
+  }
 }
 
 @media screen and (max-width: 480px) {

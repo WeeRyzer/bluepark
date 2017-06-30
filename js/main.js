@@ -486,6 +486,7 @@
         });
 
         document.getElementById('user-location').onkeydown = function(e) {
+          e = event || window.event;
           if (e.keyCode == '13') {
             getLocation();
           }
