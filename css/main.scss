@@ -21,6 +21,10 @@ h4 {
   margin: 0;
 }
 
+.hidden {
+  display:none;
+}
+
 //info panel above nav (green)
 
 .info {
@@ -30,7 +34,7 @@ h4 {
   background-color: #229C3E;
   color: $white;
 
-  a, a:visited {
+  a, a:visited, a:focus {
     color: $white;
     text-decoration: underline;
 
@@ -89,7 +93,7 @@ button {
   -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12);
   box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2);
   border-radius: 2px;
-  transition: background-color 0.1s;
+  transition: background-color 0.15s;
 
   &:hover {
     background-color: $tertiary;
@@ -146,7 +150,7 @@ button {
 .flexbox { 
   display: -webkit-flex;
   display: -moz-flex;
-  display: -ms-flexbox;
+  display: -ms-flexbox; //fixes postcode search on IE
   display: -o-flex;
   display: flex;
 }
@@ -154,7 +158,7 @@ button {
 .flexbox .stretch {
   -webkit-flex: 1;
   -moz-flex: 1;
-  -ms-flex: 1;
+  -ms-flex: 1; //fixes postcode search on IE
   -o-flex: 1; 
   flex: 1; 
   flex-grow: 2;
@@ -265,7 +269,7 @@ button {
 //why-we-use
 
 #why-we-use {
-  padding: 50px 0px 30px 0px;
+  padding: 70px 0px 50px 0px;
   background-color: $primary;
   color: $black;
 

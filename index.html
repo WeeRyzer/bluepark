@@ -1,160 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
   <head>
-    <title>Bluepark - Aberdeen</title>
+    <title>Bluepark Aberdeen</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Find the nearest disabled space to your current location in Aberdeen, Scotland.">
+    <meta name="application-name" content="Bluepark">
+    <meta name="keywords" content="bluepark, disabled, parking, blue badge, aberdeen, scotland">
+    <meta name="author" content="Bluepark.org">
+    <meta name="copyright" content="Bluepark.org">
+    <link rel="icon" type="image/png" href="img/16x16.png" sizes="16x16">  
+    <link rel="icon" type="image/png" href="img/32x32.png" sizes="32x32">  
+    <link rel="icon" type="image/png" href="img/96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="img/192x192.png" sizes="192x192">   
+    <link rel="stylesheet" type="text/css" href="css/main.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!--android meta-->
     <meta name="theme-color" content="#32528f">
-    <script src="https://use.fontawesome.com/37fce4790f.js"></script>
+
+    <!--apple meta-->
+    <link rel="apple-touch-icon" href="img/120x120.png"> 
+    <link rel="apple-touch-icon" sizes="180x180" href="img/180x180.png">  
+    <link rel="apple-touch-icon" sizes="152x152" href="img/152x152.png">  
+    <link rel="apple-touch-icon" sizes="167x167" href="img/167x167.png">  
+    <meta name="apple-mobile-web-app-title" content="Bluepark">
+
+    <!--ms meta-->
+    <meta name="msapplication-TileColor" content="#32528f">
+    <meta name="msapplication-TileImage" content="img/144x144.png">
+    <meta name="msapplication-config" content="browserconfig.xml">
+
+    <!--facebook meta-->
+    <meta property="og:url" content="https://bluepark.org">
+    <meta property="og:title" content="Bluepark Aberdeen">
+    <meta name="og:site_name" content="Bluepark">
+    <meta property="og:type" content="website">
+    <meta name="og:locale" content="en_GB">
+    <meta property="og:description" content="Find the nearest disabled space to your current location in Aberdeen, Scotland.">
+    <meta property="og:image" content="https://bluepark.org/img/1200x1200.png">
+    <meta property="fb:app_id" content="966242223397117">
+
+    <!--twitter meta-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@blueparkorg">
+    <meta name="twitter:title" content="Bluepark Aberdeen">
+    <meta name="twitter:description" content="Find the nearest disabled space to your current location in Aberdeen, Scotland.">
+    <meta name="twitter:image" content="https://bluepark.org/img/4096x4096.png">
+    <meta name="twitter:image:alt" content="Bluepark logo">
+
+    <!--hot jar tracking-->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:552665,hjsv:5};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
   </head>
   <body>
 
-    <div class="info">
-      <div class="container">
-        <div class="col-xs-10">
-            <span>LOCATION SERVICES NEEDED - <a href="#why-we-use">WHY?</a></span>
+  <div class="info">
+    <div class="container">
+      <div class="col-xs-10">
+          <span>LOCATION SERVICES NEEDED - <a href="#why-we-use">WHY?</a></span>
+      </div>
+      <div class="col-xs-2">
+        <i id="close" class="fa fa-times"></i>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="container">
+      <div class="col-xs-12">
+        <span><i class="fa fa-wheelchair-alt" aria-hidden="true"></i>Bluepark</span>
+        <span>v1.0</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="search">
+    <div class="container">
+      <div class="col-sm-6 col-md-8">
+        <div class="get-location">
+          <button id="your-loc"><i class="fa fa-location-arrow" aria-hidden="true"></i>GET MY LOCATION</button>
         </div>
-        <div class="col-xs-2">
-          <i id="close" class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="get-postcode">
+          <section class="flexbox">
+                  <div class="stretch">
+                      <label class="hidden" for="user-location" class="hidden">Postcode</label>
+                      <input id="user-location" type="text" placeholder="Postcode" />
+                  </div>
+                  <div class="normal">
+                      <button id="get-loc"><i class="fa fa-search" aria-hidden="true"></i>FIND</button>
+                  </div>
+          </section>
         </div>
       </div>
     </div>
+  </div>
 
-    <nav>
-      <div class="container">
-        <div class="col-xs-12">
-          <span><i class="fa fa-wheelchair-alt" aria-hidden="true"></i>Bluepark</span>
-          <span>v0.9</span>
-        </div>
-      </div>
-    </nav>
+  <div id="map"></div>
 
-    <div class="search">
-      <div class="container">
-        <div class="col-sm-6 col-md-8">
-          <div class="get-location">
-            <button id="your-loc"><i class="fa fa-location-arrow" aria-hidden="true"></i>GET MY LOCATION</button>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="get-postcode">
-            <section class="flexbox">
-                    <div class="stretch">
-                        <input id="user-location" type="text" placeholder="Postcode" />
-                    </div>
-                    <div class="normal">
-                        <button id="get-loc"><i class="fa fa-search" aria-hidden="true"></i>FIND</button>
-                    </div>
-            </section>
-          </div>
-        </div>
-      </div>
+  <div class="closest-marker-info">
+    <div class="container">
+      <ul id="distances">
+        <h1 id="response">Use your location or a postcode to find the nearest spaces</h1>
+      </ul>
     </div>
+  </div>
 
-    <div id="map"></div>
-
-    <div class="closest-marker-info">
-      <div class="container">
-        <ul id="distances">
-          <h1 id="response">Use your location or a postcode to find the nearest spaces</h1>
-        </ul>
-      </div>
-    </div>
-
-    <div id="why-we-use">
-      <div class="container">
-          <div class="col-md-6">
-              <div class="box">
-                <h2>Why do you need my location?</h2>
-                <p>To get the best accuracy for the spaces closest to you, location services gives us the most accurate data to help you find where to park.</p>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="box">
-                <h2>I don't like using location services</h2>
-                <p>That's no problem. If you would prefer not to use location services, you can enter a postcode and find the closest spaces to that area instead.</p>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="box">
-                <h2>I found a space that isn't on the map</h2>
-                <p>Great! If you have the details we can get it added to the map. Get in touch by sending an email or fill out the form below.</p>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="box">
-                <h2>I went to the location and there was no space</h2>
-                <p>Sorry about that. We try to update the map as often as possible. If this does happen, let us know and we will try and find out what is going on.</p>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="box">
-                <h2>I got a parking ticket?!</h2>
-                <p>This website is just a guide to where you can park. Please make sure you read all the signs before parking. We are not liable for your parking ticket.</p>
-              </div>
-          </div>
-          <div class="col-md-6">
-              <div class="box">
-                <h2>Can I park for free at pay and display areas?</h2>
-                <p>Yes! You can park in any existing on-street pay and display zone or any Aberdeen City Council car park as long as you display your blue badge.</p>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    <footer>
-      <div class="container">
-        <div class="col-xs-12 col-md-8">
-          <h2>Contact and updates</h2>
-            <div class="contact-option">
-              <i class="fa fa-twitter" aria-hidden="true"></i><span><a href="https://www.twitter.com/blueparkorg">@blueparkorg</a></span>
+  <div id="why-we-use">
+    <div class="container">
+        <div class="col-md-6">
+            <div class="box">
+              <h2>Why do you need my location?</h2>
+              <p>To get the best accuracy for the spaces closest to you, location services gives us the most accurate data to help you find where to park.</p>
             </div>
-            <div class="contact-option">
-              <i class="fa fa-envelope" aria-hidden="true"></i><span><a href="mailto:contact@bluepark.org">contact@bluepark.org</a></span>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+              <h2>I don't like using location services</h2>
+              <p>That's no problem. If you would prefer not to use location services, you can enter a postcode and find the closest spaces to that area instead.</p>
             </div>
-            <hr>
-          <h2>Disclaimer</h2>
-          <p>This website is just a guide to where you can park. Please make sure you read all the signs before parking. We are not liable if you receive a parking ticket.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+              <h2>I found a space that isn't on the map</h2>
+              <p>Great! If you have the details we can get it added to the map. Get in touch by sending an email or fill out the form below.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+              <h2>I went to the location and there was no space</h2>
+              <p>Sorry about that. We try to update the map as often as possible. If this does happen, let us know and we will try and find out what is going on.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+              <h2>I got a parking ticket?!</h2>
+              <p>This website is just a guide to where you can park. Please make sure you read all the signs before parking. We are not liable for your parking ticket.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+              <h2>Can I park for free at pay and display areas?</h2>
+              <p>Yes! You can park in any existing on-street pay and display zone or any Aberdeen City Council car park as long as you display your blue badge.</p>
+            </div>
+        </div>
+    </div>
+  </div>
 
-          <p>For more information, check out the Aberdeen City Council website <a href="http://www.aberdeencity.gov.uk/transport_streets/parking/roa_disabled_parking_prov.asp">here</a>.</p>
-
-          <p>Icon provided by <a href="http://accessibleicon.org/">accessibleicon.org</a>.</p>
+  <footer>
+    <div class="container">
+      <div class="col-xs-12 col-md-8">
+        <h2>Contact and updates</h2>
+          <div class="contact-option">
+            <i class="fa fa-twitter" aria-hidden="true"></i><span><a href="https://www.twitter.com/blueparkorg">@blueparkorg</a></span>
+          </div>
+          <div class="contact-option">
+            <i class="fa fa-envelope" aria-hidden="true"></i><span><a href="mailto:contact@bluepark.org">contact@bluepark.org</a></span>
+          </div>
           <hr>
-        </div>
-        <div class="col-xs-12 col-md-4">
-          <h2>Get in touch</h2>
-          <form action="https://formspree.io/contact@bluepark.org"
-                method="POST">
-              <input type="text" name="_gotcha" style="display:none" />
-              <label>Name</label>
-              <input type="text" name="name" placeholder="Enter your name here">
-              <label>Email</label>
-              <input type="email" name="_replyto" placeholder="Enter your email address here">
-              <label>Message</label>
-              <textarea name="message" placeholder="Write your message here"></textarea>
-              <button type="submit" value="Send">Send</button>
-          </form>
-        </div>
+        <h2>Disclaimer</h2>
+        <p>This website is just a guide to where you can park. Please make sure you read all the signs before parking. We are not liable if you receive a parking ticket.</p>
+
+        <p>For more information, check out the <a href="http://www.aberdeencity.gov.uk/transport_streets/parking/roa_disabled_parking_prov.asp">Aberdeen City Council website</a>.</p>
+
+        <p>Icon provided by <a href="http://accessibleicon.org/">accessibleicon.org</a>.</p>
+        <hr>
       </div>
-    </footer>
+      <div class="col-xs-12 col-md-4">
+        <h2>Get in touch</h2>
+        <form action="https://formspree.io/contact@bluepark.org"
+              method="POST">
+            <label for="gotcha" class="hidden">reCAPTCHA for spam messages</label>
+            <input type="text" name="_gotcha" id="gotcha" class="hidden"/>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter your name here">
+            <label for="email">Email</label>
+            <input type="email" name="_replyto" id="email" placeholder="Enter your email address here">
+            <label for="message">Message</label>
+            <textarea name="message" id="message" placeholder="Write your message here"></textarea>
+            <button type="submit" value="Send">Send</button>
+        </form>
+      </div>
+    </div>
+  </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script async src="https://use.fontawesome.com/37fce4790f.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&libraries=geometry&callback=initMap"
-    async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
 
-    <script src="js/main.js"></script>
+  <script src="js/main.min.js" defer></script>
 
-    <script>
-      $(document).ready(function() {
-        $('#close').click(function() {
-          $('.info').hide();
-        });
-      });
-    </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATPWWSWpGzrO9NtlYK4v9qrLzAkM0RdA4&libraries=geometry&callback=initMap"
+ defer></script>
+
   </body>
 </html>
